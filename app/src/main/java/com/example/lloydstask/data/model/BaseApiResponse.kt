@@ -1,4 +1,4 @@
-package com.example.lloydstask.model
+package com.example.lloydstask.data.model
 
 import com.example.lloydstask.utils.Result
 import retrofit2.Response

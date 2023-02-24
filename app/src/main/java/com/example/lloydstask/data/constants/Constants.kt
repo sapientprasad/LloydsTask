@@ -1,4 +1,4 @@
-package com.example.lloydstask.utils
+package com.example.lloydstask.data.constants
 
 class Constants {
 

@@ -1,7 +1,7 @@
 package com.example.lloydstask.di
 
-import com.example.lloydstask.api.ApiService
-import com.example.lloydstask.utils.Constants.Companion.BASE_URL
+import com.example.lloydstask.data.services.ApiService
+import com.example.lloydstask.data.constants.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

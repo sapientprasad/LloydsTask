@@ -1,4 +1,4 @@
-package com.example.lloydstask.wrapper
+package com.example.lloydstask.ui.wrapper
 
 import android.widget.ImageView
 

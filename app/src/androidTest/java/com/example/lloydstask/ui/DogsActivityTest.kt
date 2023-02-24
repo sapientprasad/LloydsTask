@@ -6,16 +6,17 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.lloydstask.R
+import com.example.lloydstask.ui.activities.DogsActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest {
+class DogsActivityTest {
 
     @get:Rule
-    val activityTestRule: ActivityScenarioRule<MainActivity> =
-        ActivityScenarioRule(MainActivity::class.java)
+    val activityTestRule: ActivityScenarioRule<DogsActivity> =
+        ActivityScenarioRule(DogsActivity::class.java)
 
     @Test
     fun testActivityUIElements() {

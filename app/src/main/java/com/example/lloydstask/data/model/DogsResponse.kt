@@ -1,4 +1,4 @@
-package com.example.lloydstask.model
+package com.example.lloydstask.data.model
 
 data class DogsResponse(
     val message: String,

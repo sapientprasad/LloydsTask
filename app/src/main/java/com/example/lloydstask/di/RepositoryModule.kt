@@ -1,23 +1,24 @@
 package com.example.lloydstask.di
 
-import com.example.lloydstask.api.ApiService
-import com.example.lloydstask.data.remote.RemoteDataSource
-import com.example.lloydstask.mapper.DogsModelMapper
-import com.example.lloydstask.repository.DogsRepository
+import com.example.lloydstask.data.services.ApiService
+import com.example.lloydstask.data.implementation.DogsRepoImpl
+import com.example.lloydstask.domain.mapper.DogsModelMapper
+import com.example.lloydstask.domain.repository.DogsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object RepositoryModule {
-    @Singleton
+
     @Provides
     fun provideDogsRepository(
         apiService: ApiService,
         dogsModelMapper: DogsModelMapper
     ): DogsRepository =
-        RemoteDataSource(apiService, dogsModelMapper)
+        DogsRepoImpl(apiService, dogsModelMapper)
 }

@@ -1,12 +1,12 @@
-package com.example.lloydstask.usecases
+package com.example.lloydstask.domain.usecases
 
 import com.example.lloydstask.BaseTest
-import com.example.lloydstask.model.DogsUrlModel
-import com.example.lloydstask.repository.DogsRepository
+import com.example.lloydstask.domain.model.DogsUrlModel
+import com.example.lloydstask.domain.repository.DogsRepository
 import com.example.lloydstask.utils.Result
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -16,11 +16,8 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class GetDogUseCaseTest : BaseTest() {
 
-    @MockK
-    private lateinit var dogsRepository: DogsRepository
-
-    @MockK
-    private lateinit var dogsUrlModelResult: Flow<Result<DogsUrlModel>>
+    private val dogsRepository: DogsRepository = mockk()
+    private val dogsUrlModelResult: Flow<Result<DogsUrlModel>> = mockk()
 
     @Test
     fun getDog_returnsDogData() = runTest {

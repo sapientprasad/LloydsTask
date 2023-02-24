@@ -1,14 +1,15 @@
-package com.example.lloydstask.data.remote
+package com.example.lloydstask.domain.repository
 
 import com.example.lloydstask.BaseTest
-import com.example.lloydstask.api.ApiService
-import com.example.lloydstask.mapper.DogsModelMapper
-import com.example.lloydstask.model.DogsResponse
-import com.example.lloydstask.model.DogsUrlModel
+import com.example.lloydstask.data.implementation.DogsRepoImpl
+import com.example.lloydstask.data.services.ApiService
+import com.example.lloydstask.data.model.DogsResponse
+import com.example.lloydstask.domain.model.DogsUrlModel
+import com.example.lloydstask.domain.mapper.DogsModelMapper
 import com.example.lloydstask.utils.Result
 import io.mockk.coEvery
 import io.mockk.every
-import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -17,29 +18,20 @@ import org.junit.Test
 import retrofit2.Response
 
 @ExperimentalCoroutinesApi
-class RemoteDataSourceTest : BaseTest() {
+class DogsRepoImplTest : BaseTest() {
 
-    @MockK
-    private lateinit var apiService: ApiService
+    private val apiService: ApiService = mockk()
+    private val dogsModelMapper: DogsModelMapper = mockk()
+    private val dogsResponseMock: Response<DogsResponse> = mockk()
+    private val dogsResponse: DogsResponse = mockk()
+    private val dogsUrlModel: DogsUrlModel = mockk()
 
-    @MockK
-    private lateinit var dogsModelMapper: DogsModelMapper
-
-    @MockK
-    private lateinit var dogsResponseMock: Response<DogsResponse>
-
-    @MockK
-    private lateinit var dogsResponse: DogsResponse
-
-    @MockK
-    private lateinit var dogsUrlModel: DogsUrlModel
-
-    private lateinit var remoteDataSource: RemoteDataSource
+    private lateinit var dogsRepoImpl: DogsRepoImpl
 
     @Before
     override fun setUp() {
         super.setUp()
-        remoteDataSource = RemoteDataSource(apiService, dogsModelMapper)
+        dogsRepoImpl = DogsRepoImpl(apiService, dogsModelMapper)
     }
 
     @Test
@@ -48,7 +40,7 @@ class RemoteDataSourceTest : BaseTest() {
         every { dogsResponseMock.body() } returns dogsResponse
         every { dogsResponseMock.isSuccessful } returns true
         coEvery { apiService.getDog() } returns dogsResponseMock
-        val dogDetails = remoteDataSource.getDog()
+        val dogDetails = dogsRepoImpl.getDog()
         advanceUntilIdle()
         var result: Result<DogsUrlModel>? = null
         dogDetails.collect {
@@ -61,7 +53,7 @@ class RemoteDataSourceTest : BaseTest() {
     fun getDog_returnsError() = runTest {
         every { dogsResponseMock.isSuccessful } returns false
         coEvery { apiService.getDog() } returns dogsResponseMock
-        val dogDetails = remoteDataSource.getDog()
+        val dogDetails = dogsRepoImpl.getDog()
         advanceUntilIdle()
         var result: Result<DogsUrlModel>? = null
         dogDetails.collect {

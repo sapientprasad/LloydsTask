@@ -1,4 +1,4 @@
-package com.example.lloydstask.ui
+package com.example.lloydstask.ui.activities
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,31 +6,30 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.lloydstask.R
-import com.example.lloydstask.databinding.ActivityMainBinding
+import com.example.lloydstask.databinding.ActivityDogsBinding
+import com.example.lloydstask.ui.wrapper.ImageLoader
 import com.example.lloydstask.viewmodel.DogsViewModel
 import com.example.lloydstask.viewmodel.MainActivityUiState
-import com.example.lloydstask.wrapper.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class DogsActivity : AppCompatActivity() {
 
     @Inject
     lateinit var imageLoader: ImageLoader
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityDogsBinding
 
     private val dogsViewModel by viewModels<DogsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
+        binding = ActivityDogsBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
 
         observeState()
@@ -41,17 +40,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeState() {
-        dogsViewModel.state
-            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .onEach { state ->
-                handleState(state)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                dogsViewModel.state.collect {
+                    handleState(it)
+                }
             }
-            .launchIn(lifecycleScope)
+        }
     }
 
     private fun handleState(state: MainActivityUiState) {
         when (state) {
-            is MainActivityUiState.Init -> { /* Do Nothing */ }
+            is MainActivityUiState.Init -> { /* Do Nothing */
+            }
             is MainActivityUiState.Success -> showImage(state.dogsUrlModel.imageUrl)
             is MainActivityUiState.Error -> showErrorToast(state.errorMessage)
         }

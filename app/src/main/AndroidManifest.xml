@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LloydsTask">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activities.DogsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

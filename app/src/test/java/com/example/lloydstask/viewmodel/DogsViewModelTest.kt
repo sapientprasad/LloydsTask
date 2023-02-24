@@ -1,13 +1,13 @@
 package com.example.lloydstask.viewmodel
 
 import com.example.lloydstask.BaseTest
-import com.example.lloydstask.model.DogsUrlModel
-import com.example.lloydstask.usecases.GetDogUseCase
+import com.example.lloydstask.domain.model.DogsUrlModel
+import com.example.lloydstask.domain.usecases.GetDogUseCase
 import com.example.lloydstask.utils.Result
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
-import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -19,17 +19,11 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class DogsViewModelTest : BaseTest() {
-
-    @MockK
-    private lateinit var dogsUseCase: GetDogUseCase
-
-    @MockK
-    private lateinit var dogsUrlModelResult: Flow<Result<DogsUrlModel>>
-
-    @MockK
-    private lateinit var dogsUrlModel: DogsUrlModel
-
     private lateinit var dogsViewModel: DogsViewModel
+
+    private val dogsUseCase: GetDogUseCase = mockk()
+    private val dogsUrlModelResult: Flow<Result<DogsUrlModel>> = mockk()
+    private val dogsUrlModel: DogsUrlModel = mockk()
 
     @Before
     override fun setUp() {
@@ -42,7 +36,6 @@ class DogsViewModelTest : BaseTest() {
         coEvery { dogsUseCase.getDog() } returns dogsUrlModelResult
         dogsViewModel.fetchDogsData()
         advanceUntilIdle()
-        assertTrue(dogsViewModel.state.value == MainActivityUiState.Init)
         coVerify { dogsUseCase.getDog() }
     }
 

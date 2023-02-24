@@ -2,10 +2,11 @@ package com.example.lloydstask.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lloydstask.model.DogsUrlModel
-import com.example.lloydstask.usecases.GetDogUseCase
+import com.example.lloydstask.domain.model.DogsUrlModel
+import com.example.lloydstask.domain.usecases.GetDogUseCase
 import com.example.lloydstask.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -21,7 +22,7 @@ class DogsViewModel @Inject constructor(
     val state: StateFlow<MainActivityUiState> get() = _state
 
     fun fetchDogsData() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             dogUseCase.getDog()
                 .catch {
                     _state.value = MainActivityUiState.Error(it.message)
@@ -38,10 +39,4 @@ class DogsViewModel @Inject constructor(
                 }
         }
     }
-}
-
-sealed interface MainActivityUiState {
-    object Init : MainActivityUiState
-    data class Success(val dogsUrlModel: DogsUrlModel) : MainActivityUiState
-    data class Error(val errorMessage: String?) : MainActivityUiState
 }

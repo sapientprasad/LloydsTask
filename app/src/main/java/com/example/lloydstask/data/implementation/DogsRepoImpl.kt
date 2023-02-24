@@ -1,11 +1,11 @@
-package com.example.lloydstask.data.remote
+package com.example.lloydstask.data.implementation
 
-import com.example.lloydstask.api.ApiService
-import com.example.lloydstask.mapper.DogsModelMapper
-import com.example.lloydstask.model.BaseApiResponse
-import com.example.lloydstask.model.DogsUrlModel
-import com.example.lloydstask.repository.DogsRepository
-import com.example.lloydstask.utils.Constants.Companion.EMPTY_STRING
+import com.example.lloydstask.data.services.ApiService
+import com.example.lloydstask.domain.mapper.DogsModelMapper
+import com.example.lloydstask.data.model.BaseApiResponse
+import com.example.lloydstask.domain.model.DogsUrlModel
+import com.example.lloydstask.domain.repository.DogsRepository
+import com.example.lloydstask.data.constants.Constants.Companion.EMPTY_STRING
 import com.example.lloydstask.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +15,7 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 import javax.inject.Inject
 
-class RemoteDataSource @Inject constructor(
+class DogsRepoImpl @Inject constructor(
     private val apiService: ApiService,
     private val dogsModelMapper: DogsModelMapper
 ) : DogsRepository, BaseApiResponse() {
