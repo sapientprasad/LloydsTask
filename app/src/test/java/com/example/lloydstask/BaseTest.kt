@@ -18,4 +18,10 @@ open class BaseTest {
         MockKAnnotations.init(this, relaxUnitFun = true)
         Dispatchers.setMain(testDispatcher)
     }
+
+    companion object {
+        const val DEFAULT_ERROR_MESSAGE = "Something went wrong"
+        const val MOVIE_ID = "12345678"
+        const val MOVIE_LANGUAGE = "en"
+    }
 }

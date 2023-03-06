@@ -2,6 +2,7 @@ package com.example.lloydstask.di
 
 import com.example.lloydstask.data.services.ApiService
 import com.example.lloydstask.data.constants.Constants.Companion.BASE_URL
+import com.example.lloydstask.data.constants.Constants.Companion.TIMEOUT_MILLI_SECS
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,8 +30,8 @@ object NetworkModule {
         return OkHttpClient
             .Builder()
             .addNetworkInterceptor(logInterceptor)
-            .readTimeout(15, TimeUnit.SECONDS)
-            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT_MILLI_SECS, TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT_MILLI_SECS, TimeUnit.SECONDS)
             .build()
     }
 
