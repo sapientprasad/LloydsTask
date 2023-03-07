@@ -35,7 +35,7 @@ class MoviesRemoteDataSourceTest : BaseTest() {
     @Before
     override fun setUp() {
         super.setUp()
-        remoteDataSource = MoviesRemoteDataSource(apiService)
+        remoteDataSource = MoviesRemoteDataSource(apiService, testDispatcher)
     }
 
     @Test

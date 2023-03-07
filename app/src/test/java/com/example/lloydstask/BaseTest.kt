@@ -10,8 +10,7 @@ import org.junit.Before
 @ExperimentalCoroutinesApi
 open class BaseTest {
 
-    @ExperimentalCoroutinesApi
-    private val testDispatcher = StandardTestDispatcher()
+    val testDispatcher = StandardTestDispatcher()
 
     @Before
     open fun setUp() {

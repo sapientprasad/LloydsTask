@@ -30,7 +30,7 @@ class MovieViewModelTest : BaseTest() {
     @Before
     override fun setUp() {
         super.setUp()
-        movieViewModel = MovieViewModel(movieUseCase)
+        movieViewModel = MovieViewModel(movieUseCase, testDispatcher)
     }
 
     @Test
