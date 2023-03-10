@@ -1,7 +1,8 @@
-package com.example.lloydstask.domain.usecases
+package com.example.lloydstask.repository
 
 import com.example.lloydstask.BaseTest
-import com.example.lloydstask.data.implementation.datasource.remotedatasource.MoviesRemoteDataSource
+import com.example.lloydstask.data.datasource.remotedatasource.MoviesRemoteDataSource
+import com.example.lloydstask.data.repository.MoviesRepositoryImpl
 import com.example.lloydstask.domain.model.MovieDetailsDomainModel
 import com.example.lloydstask.domain.model.MovieListDomainModel
 import com.example.lloydstask.utils.Result
@@ -15,32 +16,36 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class MovieUseCaseTest : BaseTest() {
+class MoviesRepositoryImplTest: BaseTest() {
 
     private val remoteDataSource: MoviesRemoteDataSource = mockk()
     private val movieListDomainModelResult: Flow<Result<MovieListDomainModel?>> = mockk()
     private val movieDetailsDomainModelResult: Flow<Result<MovieDetailsDomainModel?>> = mockk()
 
-    private lateinit var movieUseCase: MovieUseCase
+    private lateinit var moviesRepositoryImpl: MoviesRepositoryImpl
 
     override fun setUp() {
         super.setUp()
-        movieUseCase = MovieUseCase(remoteDataSource)
+        moviesRepositoryImpl = MoviesRepositoryImpl(remoteDataSource)
     }
 
     @Test
-    fun getMovieList_returnsMovieList() = runTest {
+    fun getMovieList_returnMovieList() = runTest {
         coEvery { remoteDataSource.getMovieList() } returns movieListDomainModelResult
-        movieUseCase.getMovieList()
+
+        moviesRepositoryImpl.getMovieList()
         advanceUntilIdle()
+
         coVerify { remoteDataSource.getMovieList() }
     }
 
     @Test
-    fun getMovieDetails_returnsMovieList() = runTest {
+    fun getMovieDetails_returnMovieDetails() = runTest {
         coEvery { remoteDataSource.getMovieDetails(MOVIE_ID) } returns movieDetailsDomainModelResult
-        movieUseCase.getMovieDetails(MOVIE_ID)
+
+        moviesRepositoryImpl.getMovieDetails(MOVIE_ID)
         advanceUntilIdle()
+
         coVerify { remoteDataSource.getMovieDetails(MOVIE_ID) }
     }
 }

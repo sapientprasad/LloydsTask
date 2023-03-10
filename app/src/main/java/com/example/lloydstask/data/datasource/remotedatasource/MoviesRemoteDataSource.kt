@@ -1,4 +1,4 @@
-package com.example.lloydstask.data.implementation.datasource.remotedatasource
+package com.example.lloydstask.data.datasource.remotedatasource
 
 import com.example.lloydstask.BuildConfig
 import com.example.lloydstask.data.services.ApiService

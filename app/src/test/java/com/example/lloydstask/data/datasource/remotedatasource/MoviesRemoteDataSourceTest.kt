@@ -1,7 +1,8 @@
-package com.example.lloydstask.data.implementation.datasource.remotedatasource
+package com.example.lloydstask.data.datasource.remotedatasource
 
 import com.example.lloydstask.BaseTest
 import com.example.lloydstask.BuildConfig
+import com.example.lloydstask.data.datasource.remotedatasource.MoviesRemoteDataSource
 import com.example.lloydstask.data.model.MovieDetailsResponse
 import com.example.lloydstask.data.model.MovieListResponse
 import com.example.lloydstask.data.services.ApiService

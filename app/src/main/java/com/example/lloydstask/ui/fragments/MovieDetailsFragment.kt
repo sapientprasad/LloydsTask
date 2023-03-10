@@ -15,7 +15,8 @@ import com.example.lloydstask.databinding.FragmentMovieDetailsBinding
 import com.example.lloydstask.domain.model.MovieDetailsDomainModel
 import com.example.lloydstask.ui.wrapper.ImageLoader
 import com.example.lloydstask.utils.Result
-import com.example.lloydstask.viewmodel.MovieViewModel
+import com.example.lloydstask.viewmodel.MovieDetailsViewModel
+import com.example.lloydstask.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,7 +29,7 @@ class MovieDetailsFragment : BaseFragment() {
     lateinit var imageLoader: ImageLoader
 
     private lateinit var binding: FragmentMovieDetailsBinding
-    private val viewModel by viewModels<MovieViewModel>()
+    private val viewModel by viewModels<MovieDetailsViewModel>()
     private val args: MovieDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(

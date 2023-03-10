@@ -20,7 +20,7 @@ import com.example.lloydstask.ui.adapters.MovieItemAdapter
 import com.example.lloydstask.ui.viewholders.MovieItemViewHolder
 import com.example.lloydstask.ui.wrapper.ImageLoader
 import com.example.lloydstask.utils.Result
-import com.example.lloydstask.viewmodel.MovieViewModel
+import com.example.lloydstask.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,7 +35,7 @@ class MovieListFragment : BaseFragment(), MovieItemClickListener {
     private lateinit var binding: FragmentMovieListBinding
     private lateinit var adapter: RecyclerView.Adapter<MovieItemViewHolder>
 
-    private val viewModel by viewModels<MovieViewModel>()
+    private val viewModel by viewModels<MovieListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
