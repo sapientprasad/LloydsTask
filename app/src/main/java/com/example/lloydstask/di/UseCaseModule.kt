@@ -1,6 +1,6 @@
 package com.example.lloydstask.di
 
-import com.example.lloydstask.domain.repository.MoviesRepository
+import com.example.lloydstask.data.repository.MoviesRepository
 import com.example.lloydstask.domain.usecases.MovieDetailsUseCase
 import com.example.lloydstask.domain.usecases.MovieListUseCase
 import dagger.Module

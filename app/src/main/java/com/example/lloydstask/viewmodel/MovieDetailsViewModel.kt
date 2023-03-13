@@ -2,8 +2,8 @@ package com.example.lloydstask.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lloydstask.data.model.MovieDetailsModel
 import com.example.lloydstask.di.IoDispatcher
-import com.example.lloydstask.domain.model.MovieDetailsDomainModel
 import com.example.lloydstask.domain.usecases.MovieDetailsUseCase
 import com.example.lloydstask.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +20,8 @@ class MovieDetailsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _movieDetailsState =
-        MutableStateFlow<Result<MovieDetailsDomainModel?>>(Result.Loading())
-    val movieDetailsState: StateFlow<Result<MovieDetailsDomainModel?>> get() = _movieDetailsState
+        MutableStateFlow<Result<MovieDetailsModel?>>(Result.Loading())
+    val movieDetailsState: StateFlow<Result<MovieDetailsModel?>> get() = _movieDetailsState
 
     fun fetchMovieDetails(id: String) {
         viewModelScope.launch(ioDispatcher) {

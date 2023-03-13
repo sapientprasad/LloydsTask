@@ -1,9 +1,8 @@
 package com.example.lloydstask.domain.usecases
 
 import com.example.lloydstask.BaseTest
-import com.example.lloydstask.domain.model.MovieDetailsDomainModel
+import com.example.lloydstask.data.repository.MoviesRepository
 import com.example.lloydstask.domain.model.MovieListDomainModel
-import com.example.lloydstask.domain.repository.MoviesRepository
 import com.example.lloydstask.utils.Result
 import io.mockk.coEvery
 import io.mockk.coVerify

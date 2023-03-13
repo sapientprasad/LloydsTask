@@ -1,8 +1,7 @@
 package com.example.lloydstask.di
 
 import com.example.lloydstask.data.datasource.remotedatasource.MoviesRemoteDataSource
-import com.example.lloydstask.data.repository.MoviesRepositoryImpl
-import com.example.lloydstask.domain.repository.MoviesRepository
+import com.example.lloydstask.data.repository.MoviesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,5 +14,5 @@ object RepositoryModule {
     @Provides
     fun providesMovieRepository(
         moviesRemoteDataSource: MoviesRemoteDataSource
-    ): MoviesRepository = MoviesRepositoryImpl(moviesRemoteDataSource)
+    ): MoviesRepository = MoviesRepository(moviesRemoteDataSource)
 }

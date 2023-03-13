@@ -3,6 +3,7 @@ package com.example.lloydstask.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lloydstask.data.model.MovieItem
 import com.example.lloydstask.databinding.ItemMovieListBinding
 import com.example.lloydstask.domain.model.MovieDomainItem
 import com.example.lloydstask.ui.MovieItemClickListener
@@ -10,7 +11,7 @@ import com.example.lloydstask.ui.viewholders.MovieItemViewHolder
 import com.example.lloydstask.ui.wrapper.ImageLoader
 
 class MovieItemAdapter(
-    private val itemList: List<MovieDomainItem>,
+    private val itemList: List<MovieItem>,
     private val imageLoader: ImageLoader,
     private val listener: MovieItemClickListener
 ) : RecyclerView.Adapter<MovieItemViewHolder>() {

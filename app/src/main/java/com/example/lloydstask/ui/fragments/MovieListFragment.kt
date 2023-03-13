@@ -12,9 +12,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lloydstask.data.model.MovieItem
+import com.example.lloydstask.data.model.MovieListModel
 import com.example.lloydstask.databinding.FragmentMovieListBinding
-import com.example.lloydstask.domain.model.MovieDomainItem
-import com.example.lloydstask.domain.model.MovieListDomainModel
 import com.example.lloydstask.ui.MovieItemClickListener
 import com.example.lloydstask.ui.adapters.MovieItemAdapter
 import com.example.lloydstask.ui.viewholders.MovieItemViewHolder
@@ -51,9 +51,9 @@ class MovieListFragment : BaseFragment(), MovieItemClickListener {
         viewModel.fetchMovieList()
     }
 
-    override fun onClick(movieDomainItem: MovieDomainItem) {
+    override fun onClick(movieItem: MovieItem) {
         val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(
-            movieDomainItem.id
+            movieItem.id
         )
         findNavController().navigate(action)
     }
@@ -68,7 +68,7 @@ class MovieListFragment : BaseFragment(), MovieItemClickListener {
         }
     }
 
-    private fun handleState(result: Result<MovieListDomainModel?>) {
+    private fun handleState(result: Result<MovieListModel?>) {
         when (result) {
             is Result.Loading -> {
                 showProgressBar(binding.progressBar)
@@ -84,9 +84,9 @@ class MovieListFragment : BaseFragment(), MovieItemClickListener {
         }
     }
 
-    private fun handleSuccess(listDomainModel: MovieListDomainModel?) {
+    private fun handleSuccess(listDomainModel: MovieListModel?) {
         listDomainModel?.let {
-            adapter = MovieItemAdapter(it.movieDomainItemList, imageLoader, this)
+            adapter = MovieItemAdapter(it.movieItemList, imageLoader, this)
             binding.rvMovieList.adapter = adapter
             binding.rvMovieList.layoutManager = LinearLayoutManager(activity)
         }

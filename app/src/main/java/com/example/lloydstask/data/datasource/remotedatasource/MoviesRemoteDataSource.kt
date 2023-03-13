@@ -1,14 +1,13 @@
 package com.example.lloydstask.data.datasource.remotedatasource
 
 import com.example.lloydstask.BuildConfig
+import com.example.lloydstask.data.datasource.DataSource
 import com.example.lloydstask.data.services.ApiService
 import com.example.lloydstask.di.IoDispatcher
 import com.example.lloydstask.domain.model.MovieDetailsDomainModel
 import com.example.lloydstask.domain.model.MovieListDomainModel
-import com.example.lloydstask.domain.repository.MoviesRepository
 import com.example.lloydstask.utils.Result
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -18,7 +17,7 @@ import javax.inject.Inject
 class MoviesRemoteDataSource @Inject constructor(
     private val apiService: ApiService,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) : MoviesRepository {
+) : DataSource {
     override suspend fun getMovieList(): Flow<Result<MovieListDomainModel?>> {
         return flow {
             val response = apiService.getMoviesList(Locale.US.language, BuildConfig.API_KEY)

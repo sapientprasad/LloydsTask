@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.lloydstask.R
+import com.example.lloydstask.data.model.MovieDetailsModel
 import com.example.lloydstask.databinding.FragmentMovieDetailsBinding
 import com.example.lloydstask.domain.model.MovieDetailsDomainModel
 import com.example.lloydstask.ui.wrapper.ImageLoader
@@ -57,7 +58,7 @@ class MovieDetailsFragment : BaseFragment() {
         }
     }
 
-    private fun handleState(result: Result<MovieDetailsDomainModel?>) {
+    private fun handleState(result: Result<MovieDetailsModel?>) {
         when (result) {
             is Result.Loading -> {
                 showProgressBar(binding.progressBar)
@@ -73,7 +74,7 @@ class MovieDetailsFragment : BaseFragment() {
         }
     }
 
-    private fun handleSuccess(movieDetails: MovieDetailsDomainModel?) {
+    private fun handleSuccess(movieDetails: MovieDetailsModel?) {
         movieDetails?.let {
             imageLoader.loadImage(
                 it.imageUrl,

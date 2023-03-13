@@ -1,7 +1,7 @@
 package com.example.lloydstask.ui
 
-import com.example.lloydstask.domain.model.MovieDomainItem
+import com.example.lloydstask.data.model.MovieItem
 
 interface MovieItemClickListener {
-    fun onClick(movieDomainItem: MovieDomainItem)
+    fun onClick(movieDomainItem: MovieItem)
 }

@@ -1,8 +1,8 @@
-package com.example.lloydstask.repository
+package com.example.lloydstask.data.datasource.remotedatasource.repository
 
 import com.example.lloydstask.BaseTest
 import com.example.lloydstask.data.datasource.remotedatasource.MoviesRemoteDataSource
-import com.example.lloydstask.data.repository.MoviesRepositoryImpl
+import com.example.lloydstask.data.repository.MoviesRepository
 import com.example.lloydstask.domain.model.MovieDetailsDomainModel
 import com.example.lloydstask.domain.model.MovieListDomainModel
 import com.example.lloydstask.utils.Result
@@ -16,24 +16,24 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class MoviesRepositoryImplTest: BaseTest() {
+class MoviesRepositoryTest: BaseTest() {
 
     private val remoteDataSource: MoviesRemoteDataSource = mockk()
     private val movieListDomainModelResult: Flow<Result<MovieListDomainModel?>> = mockk()
     private val movieDetailsDomainModelResult: Flow<Result<MovieDetailsDomainModel?>> = mockk()
 
-    private lateinit var moviesRepositoryImpl: MoviesRepositoryImpl
+    private lateinit var moviesRepository: MoviesRepository
 
     override fun setUp() {
         super.setUp()
-        moviesRepositoryImpl = MoviesRepositoryImpl(remoteDataSource)
+        moviesRepository = MoviesRepository(remoteDataSource)
     }
 
     @Test
     fun getMovieList_returnMovieList() = runTest {
         coEvery { remoteDataSource.getMovieList() } returns movieListDomainModelResult
 
-        moviesRepositoryImpl.getMovieList()
+        moviesRepository.getMovieList()
         advanceUntilIdle()
 
         coVerify { remoteDataSource.getMovieList() }
@@ -43,7 +43,7 @@ class MoviesRepositoryImplTest: BaseTest() {
     fun getMovieDetails_returnMovieDetails() = runTest {
         coEvery { remoteDataSource.getMovieDetails(MOVIE_ID) } returns movieDetailsDomainModelResult
 
-        moviesRepositoryImpl.getMovieDetails(MOVIE_ID)
+        moviesRepository.getMovieDetails(MOVIE_ID)
         advanceUntilIdle()
 
         coVerify { remoteDataSource.getMovieDetails(MOVIE_ID) }
