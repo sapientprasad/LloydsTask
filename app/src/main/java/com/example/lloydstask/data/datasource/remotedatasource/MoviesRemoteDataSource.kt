@@ -1,5 +1,6 @@
 package com.example.lloydstask.data.datasource.remotedatasource
 
+import android.util.Log
 import com.example.lloydstask.BuildConfig
 import com.example.lloydstask.data.datasource.DataSource
 import com.example.lloydstask.data.services.ApiService
@@ -19,7 +20,9 @@ class MoviesRemoteDataSource @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : DataSource {
     override suspend fun getMovieList(): Flow<Result<MovieListDomainModel?>> {
+        Log.d("MoviesRemoteDataSource", "getMovieList : Enter")
         return flow {
+            Log.d("MoviesRemoteDataSource", "Enter flow block : Enter")
             val response = apiService.getMoviesList(Locale.US.language, BuildConfig.API_KEY)
             if (response.isSuccessful) {
                 emit(Result.Success(response.body()?.toMovieListDomainModel()))

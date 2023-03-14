@@ -2,6 +2,7 @@ package com.example.lloydstask.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lloydstask.data.constants.Constants.Companion.DEFAULT_ERROR_MESSAGE
 import com.example.lloydstask.data.model.MovieListModel
 import com.example.lloydstask.di.IoDispatcher
 import com.example.lloydstask.domain.usecases.MovieListUseCase
@@ -24,10 +25,13 @@ class MovieListViewModel @Inject constructor(
 
     fun fetchMovieList() {
         viewModelScope.launch(ioDispatcher) {
-            movieListUseCase()
-                .collect { result ->
-                    _movieListState.value = result
+            movieListUseCase().collect {
+                if (it is Result.Success) {
+                    _movieListState.value = Result.Success(it.data?.toMovieListModel())
+                } else {
+                    _movieListState.value = Result.Error(it.message ?: DEFAULT_ERROR_MESSAGE)
                 }
+            }
         }
     }
 }
